@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+		<html lang="en">
+		<head>
+			<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<title>{{.Department}}</title>
+		</head>
+		<body>
+			<h1>{{.Department}}</h1>
+			<table border="1">
+			<tr>
+			<td><a href="https://localhost:8443/">..</a></td>
+			</tr>
+			{{range .TableData}}
+				<tr>
+					{{ $param1 := index . 0 }}
+					{{ $param2 := index . 1 }}
+					{{range .}}
+						<td>{{.}}</td>
+					{{end}}
+					<td><a href="https://localhost:8443/submitDeleteUser?first_name={{$param1}}&last_name={{$param2}}&department={{$.Department}}">Delete</a></td>
+				</tr>
+			{{end}}
+			</table>
+			<label>Add developer</label>
+			<form method="POST" action="https://localhost:8443/submitAddUser?department={{.Department}}">     
+			<label>First Name</label><input name="first_name" type="text" value="" />
+			<label>Last Name</label><input name="last_name" type="text" value="" />
+			<input type="submit" value="Submit" />
+		</form>
+		</body>
+		</html>

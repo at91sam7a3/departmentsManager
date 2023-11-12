@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+		<html lang="en">
+		<head>
+			<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<title>Departments list</title>
+		</head>
+		<body>
+			<h1>Departments list</h1>
+			<table border="1">
+	
+				{{range .TableData}}
+					<tr>						
+						<td><a href="https://localhost:8443/{{.}}">{{.}}</a>   </td>
+						<td><a href="https://localhost:8443/submitDeleteDepartment?department={{.}}">Delete</a></td>
+					</tr>
+				{{end}}
+			</table>
+			<label>Add department</label>
+			<form method="POST" action="https://localhost:8443/submitAddDepartment">     
+			<label>Department Name</label><input name="department_name" type="text" value="" />
+			<input type="submit" value="Submit" />
+		</form>
+		</body>
+		</html>
