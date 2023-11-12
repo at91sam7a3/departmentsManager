@@ -2,7 +2,6 @@ package main
 
 import (
 	"database/sql"
-	"fmt"
 	"html/template"
 	"net/http"
 )
@@ -26,15 +25,12 @@ type DBHolder struct {
 
 func (db DBHolder) ShowDepartmentsTable(w http.ResponseWriter, r *http.Request) {
 	tableData := queryDepartmentData(db.db)
-	for _, element := range tableData {
-		fmt.Println(element)
-	}
 	pageVariables := DepartmentData{
 		TableData: tableData,
 	}
 
 	// Parse the HTML template
-	tmpl, err := template.ParseFiles("departments.html")
+	tmpl, err := template.ParseFiles("templates/departments.html")
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -63,7 +59,7 @@ func (db DBHolder) ShowUsersTable(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Parse the HTML template
-	tmpl, err := template.ParseFiles("users.html")
+	tmpl, err := template.ParseFiles("templates/users.html")
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -93,7 +89,6 @@ func (db DBHolder) handleSubmitAddUser(w http.ResponseWriter, r *http.Request) {
 	name := r.FormValue("first_name")
 	lastName := r.FormValue("last_name")
 	department := r.URL.Query().Get("department")
-	fmt.Println("Posted info: Name: ", name, " Last Name: ", lastName, " dep=", department)
 	addUser(db.db, name, lastName, department)
 	r.URL.Path = "/" + department
 	db.ShowUsersTable(w, r)

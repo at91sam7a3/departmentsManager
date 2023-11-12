@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	db, err := sql.Open("sqlite3", "users.db")
+	db, err := sql.Open("sqlite3", "db/users.db")
 	if err != nil {
 		panic(err)
 	}
@@ -24,7 +24,7 @@ func main() {
 	http.HandleFunc("/submitDeleteDepartment", myDbHandler.handleSubmitDeleteDepartment)
 	http.HandleFunc("/", myDbHandler.ShowUsersTable)
 
-	if err := http.ListenAndServeTLS(":8443", "server.crt", "server.key", nil); err != nil {
+	if err := http.ListenAndServeTLS(":8443", "misc/server.crt", "misc/server.key", nil); err != nil {
 		panic(err)
 	}
 }
